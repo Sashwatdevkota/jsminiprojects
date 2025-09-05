@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Guesser</title>
+  <style>
+    #Container{ 
+        text-align: center; 
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="Container">
+    <h1 id="heading">Number Guesser</h1>
+    <label for="myRanNum">Guess a number between 1–10:</label>
+    <input id="myRanNum" type="number" min="1" max="10"><br><br>
+    <button id="myRanSubmit">Submit</button>
+    <button id="myRanReset">Reset Num</button>
+     <h1 id="ranNumAnswer">Good Luck!</h1>
+  </div>
+ 
+
+  <script>
+
+    let randomNum = Math.floor(Math.random() * 10) + 1;
+    let attempt=3;
+
+    document.getElementById(`myRanSubmit`).onclick = function () {
+      let inputNum = Number(document.getElementById(`myRanNum`).value);
+
+      if (inputNum === randomNum) {
+        document.getElementById(`ranNumAnswer`).textContent = `Right answer!`;
+        attempt=3;
+      } else {
+            if (attempt==3){
+            document.body.style.backgroundColor=`lightgreen`;
+            document.getElementById(`ranNumAnswer`).textContent = `Wrong answer! Try again. (2 chance)`;
+        }else if (attempt==2){
+            document.body.style.backgroundColor=`yellow`;
+            document.getElementById(`ranNumAnswer`).textContent = `Wrong answer! Try again. (1 chance)`;
+        }else if (attempt==1){
+            document.body.style.backgroundColor=`red`;
+           document.getElementById("ranNumAnswer").innerHTML =
+            `Wrong answer! Try again.<br> Correct Answer was ${randomNum} <br> Press Reset Num to Continue`;
+
+
+        }
+      }
+      attempt--;
+    };
+
+    
+
+    document.getElementById(`myRanReset`).onclick = function () {
+      randomNum = Math.floor(Math.random() * 10) + 1;
+      document.getElementById(`ranNumAnswer`).textContent = `Number reset, Good Luck!`;
+      attempt=3
+       document.body.style.backgroundColor=`white`;
+    };
+
+    
+  </script>
+</body>
+</html>
